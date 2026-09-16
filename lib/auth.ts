@@ -4,7 +4,7 @@ import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { prisma } from "@/lib/prisma";
 
 export const authOptions: NextAuthOptions = {
-  // @ts-ignore
+  // @ts-expect-error PrismaAdapter type mismatch
   adapter: PrismaAdapter(prisma),
   providers: [
     GoogleProvider({

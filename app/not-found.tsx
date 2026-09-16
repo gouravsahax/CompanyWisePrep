@@ -27,7 +27,7 @@ export default function NotFound() {
         <h3 className="text-xl font-semibold text-foreground/80 mb-3">Page Not Found</h3>
         
         <p className="text-sm text-muted-foreground mb-10 leading-relaxed">
-          We couldn't find the page you were looking for. It might have been moved or deleted.
+          We couldn&apos;t find the page you were looking for. It might have been moved or deleted.
         </p>
 
         <div className="flex flex-col gap-3">

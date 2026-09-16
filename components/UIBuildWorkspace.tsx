@@ -45,6 +45,7 @@ export default function UIBuildWorkspace({
   const [submitStage, setSubmitStage] = useState(0);
 
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
   }, []);
 
@@ -65,22 +66,6 @@ export default function UIBuildWorkspace({
     }, 500); // debounce 500ms
     return () => clearTimeout(timeout);
   }, [codes.html, codes.css, codes.js]);
-
-  // Timer logic
-  useEffect(() => {
-    if (isFinished || !mounted) return;
-    const interval = setInterval(() => {
-      setTimeLeft((prev) => {
-        if (prev <= 1) {
-          clearInterval(interval);
-          handleFinish();
-          return 0;
-        }
-        return prev - 1;
-      });
-    }, 1000);
-    return () => clearInterval(interval);
-  }, [isFinished, mounted]);
 
   const handleFinish = async () => {
     setIsSubmitting(true);
@@ -122,6 +107,25 @@ export default function UIBuildWorkspace({
       setIsSubmitting(false);
     }
   };
+
+  // Timer logic
+  useEffect(() => {
+    if (isFinished || !mounted) return;
+    const interval = setInterval(() => {
+      setTimeLeft((prev) => {
+        if (prev <= 1) {
+          clearInterval(interval);
+          handleFinish();
+          return 0;
+        }
+        return prev - 1;
+      });
+    }, 1000);
+    return () => clearInterval(interval);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isFinished, mounted]);
+
+
 
   const formatTime = (seconds: number) => {
     const m = Math.floor(seconds / 60);

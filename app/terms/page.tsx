@@ -19,7 +19,7 @@ export default function TermsOfServicePage() {
           <section>
             <h2 className="text-xl font-semibold text-foreground mb-4">1. Acceptance of Terms</h2>
             <p>
-              By accessing and using CompanyWisePrep ("we," "our," or "us"), you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our platform. CompanyWisePrep provides a software engineering interview preparation platform, offering coding assessments and related educational resources.
+              By accessing and using CompanyWisePrep (&quot;we,&quot; &quot;our,&quot; or &quot;us&quot;), you agree to be bound by these Terms of Service. If you do not agree to these terms, please do not use our platform. CompanyWisePrep provides a software engineering interview preparation platform, offering coding assessments and related educational resources.
             </p>
           </section>
 
@@ -52,14 +52,14 @@ export default function TermsOfServicePage() {
           <section>
             <h2 className="text-xl font-semibold text-foreground mb-4">5. Intellectual Property</h2>
             <p>
-              All content on the platform, including but not limited to coding challenges, UI designs, and educational materials, are the intellectual property of CompanyWisePrep. The names of third-party companies (e.g., "Amazon", "Google") are used purely for descriptive, educational categorization and are the trademarks of their respective owners. CompanyWisePrep is not affiliated with, endorsed by, or sponsored by these companies.
+              All content on the platform, including but not limited to coding challenges, UI designs, and educational materials, are the intellectual property of CompanyWisePrep. The names of third-party companies (e.g., &quot;Amazon&quot;, &quot;Google&quot;) are used purely for descriptive, educational categorization and are the trademarks of their respective owners. CompanyWisePrep is not affiliated with, endorsed by, or sponsored by these companies.
             </p>
           </section>
 
           <section>
             <h2 className="text-xl font-semibold text-foreground mb-4">6. Disclaimer of Warranties</h2>
             <p>
-              CompanyWisePrep is provided on an "AS IS" and "AS AVAILABLE" basis. While we strive to provide accurate and highly relevant interview preparation material, we do not guarantee that using our service will result in a job offer or successful interview outcome. We disclaim all warranties, express or implied, including fitness for a particular purpose.
+              CompanyWisePrep is provided on an &quot;AS IS&quot; and &quot;AS AVAILABLE&quot; basis. While we strive to provide accurate and highly relevant interview preparation material, we do not guarantee that using our service will result in a job offer or successful interview outcome. We disclaim all warranties, express or implied, including fitness for a particular purpose.
             </p>
           </section>
 
