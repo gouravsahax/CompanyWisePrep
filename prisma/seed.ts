@@ -9,14 +9,6 @@ async function main() {
       oas: 8,
       prepSheets: "Available",
       difficulty: "Medium",
-    },
-    {
-      slug: "hsbc",
-      name: "HSBC",
-      logo: "/logos/hsbc.png",
-      oas: 3,
-      prepSheets: "Soon",
-      difficulty: "Easy",
     }
   ];
 
@@ -39,17 +31,10 @@ async function main() {
       });
     }
 
-    if (c.slug === "hsbc") {
-      await prisma.role.createMany({
-        data: [
-          { companyId: createdCompany.id, name: "Emerging talent software internship", oaCount: 1 },
-          { companyId: createdCompany.id, name: "Trainee Software Engineer", oaCount: 2 }
-        ]
-      });
     }
   }
 
-  console.log("Seeding complete: Added Amazon and HSBC");
+  console.log("Seeding complete: Added Amazon");
 }
 
 main()

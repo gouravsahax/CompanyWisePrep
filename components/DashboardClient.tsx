@@ -208,13 +208,6 @@ export default function DashboardClient({
                 <span className="text-[10px] text-muted-foreground mt-0.5 block">1 hour ago</span>
               </div>
             </Link>
-            <Link href="#" className="group flex gap-3 items-start">
-              <div className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0"></div>
-              <div>
-                <p className="text-xs font-medium group-hover:text-primary transition-colors line-clamp-2">HSBC SDE Intern OA questions added for 2025 cycle.</p>
-                <span className="text-[10px] text-muted-foreground mt-0.5 block">2 hours ago</span>
-              </div>
-            </Link>
           </div>
         </div>
 
