@@ -175,7 +175,7 @@ export default function UIBuildWorkspace({
 
       {/* Main Content */}
       <div className="flex-1 overflow-hidden">
-        <PanelGroup direction="horizontal">
+        <PanelGroup orientation="horizontal">
           {/* Left pane: Description */}
           <Panel defaultSize={30} minSize={20}>
             <div className="h-full bg-card/30 flex flex-col overflow-y-auto p-6">

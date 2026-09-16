@@ -173,7 +173,7 @@ export default async function AssessmentAnalysisPage({
                         <div className="flex flex-col items-end">
                           <span className="text-muted-foreground uppercase text-[10px] tracking-wider mb-1">Test Cases</span>
                           <span className={`font-mono font-medium ${isOptimal ? 'text-success' : (sol && sol.testCasesPassed > 0 ? 'text-orange-500' : 'text-muted-foreground')}`}>
-                            {sol ? sol.testCasesPassed : 0} / {sol ? sol.totalTestCases : q.submitTestCases?.length || 0}
+                            {sol ? sol.testCasesPassed : 0} / {sol ? sol.totalTestCases : (Array.isArray(q.submitTestCases) ? q.submitTestCases.length : 0)}
                           </span>
                         </div>
                         <div className="w-px h-8 bg-border/50 hidden sm:block"></div>
@@ -208,7 +208,7 @@ export default async function AssessmentAnalysisPage({
                       {t}
                     </span>
                   ))}
-                  {!globalAnalysis?.strongTopics?.length && <span className="text-sm text-muted-foreground italic">None yet</span>}
+                  {((globalAnalysis?.strongTopics as string[]) || []).length === 0 && <span className="text-sm text-muted-foreground italic">None yet</span>}
                 </div>
               </div>
 
@@ -224,7 +224,7 @@ export default async function AssessmentAnalysisPage({
                       {t}
                     </span>
                   ))}
-                  {!globalAnalysis?.mediumTopics?.length && <span className="text-sm text-muted-foreground italic">None yet</span>}
+                  {((globalAnalysis?.mediumTopics as string[]) || []).length === 0 && <span className="text-sm text-muted-foreground italic">None yet</span>}
                 </div>
               </div>
 
@@ -240,7 +240,7 @@ export default async function AssessmentAnalysisPage({
                       {t}
                     </span>
                   ))}
-                  {!globalAnalysis?.weakTopics?.length && <span className="text-sm text-muted-foreground italic">None yet</span>}
+                  {((globalAnalysis?.weakTopics as string[]) || []).length === 0 && <span className="text-sm text-muted-foreground italic">None yet</span>}
                 </div>
               </div>
 

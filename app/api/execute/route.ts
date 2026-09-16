@@ -48,7 +48,7 @@ export async function POST(req: Request) {
         
         if (user) {
           let passedCount = 0;
-          if (result.success && result.results && Array.isArray(result.results)) {
+          if (result?.success && 'results' in result && Array.isArray(result.results)) {
             passedCount = result.results.filter((r: any, i: number) => {
               return r.success && testCases[i] && JSON.stringify(r.result) === JSON.stringify(testCases[i].execOutput);
             }).length;
