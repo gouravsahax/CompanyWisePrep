@@ -1,0 +1,219 @@
+datasource db {
+  provider = "postgresql"
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Account {
+  id                 String  @id @default(cuid())
+  userId             String
+  type               String
+  provider           String
+  providerAccountId  String
+  refresh_token      String?  @db.Text
+  access_token       String?  @db.Text
+  expires_at         Int?
+  token_type         String?
+  scope              String?
+  id_token           String?  @db.Text
+  session_state      String?
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([provider, providerAccountId])
+}
+
+model Session {
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model User {
+  id                  String               @id @default(cuid())
+  name                String?
+  email               String?              @unique
+  emailVerified       DateTime?
+  image               String?
+  defaultLanguage     String?
+  accounts            Account[]
+  sessions            Session[]
+  transactions        Transaction[]
+  bookmarks           Bookmark[]
+  unlockedAssessments UnlockedAssessment[]
+  credits             Int                  @default(2) // Default credits for new users
+  dsaSolutions        UserDSASolution[]
+  uiSolutions         UserUIBuildSolution[]
+  analysis            UserAnalysis?
+}
+
+model VerificationToken {
+  identifier String
+  token      String   @unique
+  expires    DateTime
+
+  @@unique([identifier, token])
+}
+
+model Transaction {
+  id              String   @id @default(cuid())
+  userId          String
+  razorpayOrderId String   @unique
+  paymentId       String?  @unique
+  amount          Float
+  creditsAdded    Int
+  status          String   @default("PENDING") // PENDING, SUCCESS, FAILED
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model Company {
+  id          String     @id @default(cuid())
+  slug        String     @unique // e.g., "amazon", "hsbc"
+  name        String
+  logo        String?
+  oas         Int?
+  prepSheets  String?
+  difficulty  String?
+  
+  bookmarks   Bookmark[]
+  roles       Role[]
+  dsaQuestions DSAQuestion[]
+  uiQuestions  UIBuildQuestion[]
+}
+
+model Bookmark {
+  id          String   @id @default(cuid())
+  userId      String
+  companyId   String
+  createdAt   DateTime @default(now())
+
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  company     Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, companyId])
+}
+
+model Role {
+  id          String   @id @default(cuid())
+  companyId   String
+  name        String
+  oaCount     Int      @default(0)
+  pattern     String?
+  createdAt   DateTime @default(now())
+
+  company     Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  dsaQuestions DSAQuestion[]
+  uiQuestions  UIBuildQuestion[]
+}
+
+model DSAQuestion {
+  id              String   @id @default(cuid())
+  title           String
+  description     String   @db.Text
+  constraints     String   @db.Text
+  topic           String?
+  dataStructure   String?
+  timeComplexity  String?
+  spaceComplexity String?
+  timeBudget      String?
+  correctSolution Json?
+  examples        Json
+  runTestCases    Json
+  submitTestCases Json
+  companyId       String
+  roleId          String
+  oaSetNo         Int
+  createdAt       DateTime @default(now())
+
+  company         Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  role            Role     @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  userSolutions   UserDSASolution[]
+}
+
+model UnlockedAssessment {
+  id           String   @id @default(cuid())
+  userId       String
+  assessmentId String
+  unlockedAt         DateTime @default(now())
+  status             String   @default("UNLOCKED")
+  submissions        Json?
+  testResults        Json?
+  assessmentAnalysis Json?
+
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, assessmentId])
+}
+
+model UserAnalysis {
+  id              String   @id @default(cuid())
+  userId          String   @unique
+  strongTopics    Json     @default("[]")
+  mediumTopics    Json     @default("[]")
+  weakTopics      Json     @default("[]")
+  generalFeedback String   @db.Text
+  updatedAt       DateTime @updatedAt
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model UserDSASolution {
+  id              String   @id @default(cuid())
+  userId          String
+  questionId      String
+  language        String
+  code            String
+  testCasesPassed Int      @default(0)
+  totalTestCases  Int      @default(0)
+  timeTaken       Int?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user       User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question   DSAQuestion  @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, questionId])
+}
+
+model UIBuildQuestion {
+  id              String   @id @default(cuid())
+  title           String
+  description     String   @db.Text
+  requirements    Json
+  defaultHtml     String   @db.Text
+  defaultCss      String   @db.Text
+  defaultJs       String   @db.Text
+  companyId       String
+  roleId          String
+  oaSetNo         Int
+  createdAt       DateTime @default(now())
+
+  company         Company  @relation(fields: [companyId], references: [id], onDelete: Cascade)
+  role            Role     @relation(fields: [roleId], references: [id], onDelete: Cascade)
+  userSolutions   UserUIBuildSolution[]
+}
+
+model UserUIBuildSolution {
+  id              String   @id @default(cuid())
+  userId          String
+  questionId      String
+  html            String   @db.Text
+  css             String   @db.Text
+  js              String   @db.Text
+  score           Int?
+  timeTaken       Int?
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+
+  user       User             @relation(fields: [userId], references: [id], onDelete: Cascade)
+  question   UIBuildQuestion  @relation(fields: [questionId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, questionId])
+}
