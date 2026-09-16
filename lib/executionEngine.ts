@@ -87,6 +87,9 @@ function toCppValue(val: any): string {
 }
 
 function generateCppWrapper(userCode: string, testCases: TestCase[]) {
+  const funcMatch = userCode.match(/(?:int|long|float|double|bool|string|vector\s*<[^>]+>)\s+([a-zA-Z0-9_]+)\s*\(/);
+  const funcName = funcMatch ? funcMatch[1] : 'solve';
+
   let mainContent = `int main() { std::cout << "["; `;
   for (let i = 0; i < testCases.length; i++) {
     const argsArray = testCases[i].execArgs || testCases[i].execInput;
@@ -99,7 +102,7 @@ function generateCppWrapper(userCode: string, testCases: TestCase[]) {
         try {
           Solution sol;
           ${argsDecls}
-          auto res = sol.solve(${argsCalls});
+          auto res = sol.${funcName}(${argsCalls});
           std::cout << "{\\"success\\":true,\\"result\\":" << toJson(res) << "}";
         } catch(...) {
           std::cout << "{\\"success\\":false,\\"error\\":\\"Runtime error\\"}";
@@ -174,6 +177,9 @@ function toJavaValue(val: any): string {
 }
 
 function generateJavaWrapper(userCode: string, testCases: TestCase[]) {
+  const funcMatch = userCode.match(/public\s+(?:static\s+)?[a-zA-Z0-9_<>\[\]]+\s+([a-zA-Z0-9_]+)\s*\(/);
+  const funcName = funcMatch ? funcMatch[1] : 'solve';
+
   let mainContent = `public static void main(String[] args) { System.out.print("["); `;
   for (let i = 0; i < testCases.length; i++) {
     const argsArray = testCases[i].execArgs || testCases[i].execInput;
@@ -184,7 +190,7 @@ function generateJavaWrapper(userCode: string, testCases: TestCase[]) {
       mainContent += `
         try {
           Solution sol = new Solution();
-          Object res = sol.solve(${args});
+          Object res = sol.${funcName}(${args});
           if (res instanceof int[]) {
               System.out.print("{\\"success\\":true,\\"result\\":" + toJson((int[])res) + "}");
           } else if (res instanceof String[]) {
