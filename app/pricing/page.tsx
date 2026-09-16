@@ -9,6 +9,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const PACKAGES = [
+  { id: "pkg_tiny", name: "Test", credits: 2, basePriceINR: 1, popular: false },
   { id: "pkg_small", name: "Starter", credits: 10, basePriceINR: 99, popular: false },
   { id: "pkg_medium", name: "Pro", credits: 25, basePriceINR: 199, popular: true },
   { id: "pkg_large", name: "Elite", credits: 75, basePriceINR: 499, popular: false },
