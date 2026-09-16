@@ -40,7 +40,7 @@ export default function ProfilePage() {
     const res = await updateDefaultLanguage(langId);
     if (res.success) {
       await update(); // refresh session data
-      router.refresh(); // clear client-side router cache
+      window.location.reload(); // clear client-side router cache completely
       toast.success("Language updated successfully");
     } else {
       toast.error("Failed to update language");
