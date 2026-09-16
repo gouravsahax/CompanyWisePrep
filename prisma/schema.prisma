@@ -127,6 +127,7 @@ model DSAQuestion {
   examples        Json
   runTestCases    Json
   submitTestCases Json
+  templates       Json?
   companyId       String
   roleId          String
   oaSetNo         Int

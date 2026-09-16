@@ -59,7 +59,13 @@ export default function AssessmentWorkspace({
     if (isCompleted && pastSubmissions) return pastSubmissions;
     const initial: Record<string, Record<string, string>> = {};
     dsaQuestions.forEach(q => {
-      initial[q.id] = { ...defaultCodeTemplates };
+      const qTemplates = q.templates || {};
+      initial[q.id] = {
+        javascript: qTemplates.javascript || defaultCodeTemplates.javascript,
+        python: qTemplates.python || defaultCodeTemplates.python,
+        java: qTemplates.java || defaultCodeTemplates.java,
+        cpp: qTemplates.cpp || defaultCodeTemplates.cpp,
+      };
     });
     return initial;
   });
