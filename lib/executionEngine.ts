@@ -296,7 +296,34 @@ function cleanError(error: string, file: string) {
 
 export async function executeCode(userCode: string, language: string, testCases: TestCase[]) {
   let wrapper = '';
-  
+  let compilerId = '';
+  let filename = '';
+  let langId = '';
+
+  if (language === 'javascript') {
+    wrapper = generateJSWrapper(userCode, testCases);
+    compilerId = 'v8trunk';
+    langId = 'javascript';
+    filename = 'example.js';
+  } else if (language === 'python') {
+    wrapper = generatePythonWrapper(userCode, testCases);
+    compilerId = 'python311';
+    langId = 'python';
+    filename = 'example.py';
+  } else if (language === 'cpp') {
+    wrapper = generateCppWrapper(userCode, testCases);
+    compilerId = 'g141';
+    langId = 'c++';
+    filename = 'example.cpp';
+  } else if (language === 'java') {
+    wrapper = generateJavaWrapper(userCode, testCases);
+    compilerId = 'java2301';
+    langId = 'java';
+    filename = 'example.java';
+  } else {
+    throw new Error('Unsupported language');
+  }
+
   const parseOutput = (rawOutput: string) => {
     try {
       const jsonStart = rawOutput.indexOf('[');
@@ -309,103 +336,39 @@ export async function executeCode(userCode: string, language: string, testCases:
     }
   };
 
-  if (language === 'javascript') {
-    wrapper = generateJSWrapper(userCode, testCases);
-  } else if (language === 'python') {
-    wrapper = generatePythonWrapper(userCode, testCases);
-  } else if (language === 'cpp') {
-    wrapper = generateCppWrapper(userCode, testCases);
-  } else if (language === 'java') {
-    wrapper = generateJavaWrapper(userCode, testCases);
-    const response = await fetch('https://godbolt.org/api/compiler/java2301/compile', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
-      body: JSON.stringify({
-        source: wrapper,
-        options: {
-          userArguments: "",
-          compilerOptions: { produceAst: false, produceOptInfo: false },
-          filters: { execute: true },
-          tools: [],
-          libraries: []
-        },
-        lang: "java",
-        allowStoreCodeDebug: true
-      })
-    });
-    
-    if (!response.ok) {
-       return { success: false, type: 'compile_error', error: "Godbolt API error: " + response.status };
-    }
-    
-    const data = await response.json();
-    if (data.code !== 0) {
-      const compileErr = data.stderr ? data.stderr.map((s: any) => s.text).join('\\n') : 'Unknown compilation error';
-      return { success: false, type: 'compile_error', error: cleanError(compileErr, 'example.java') };
-    }
-    
-    if (data.execResult && data.execResult.code !== 0) {
-      if (data.execResult.timedOut) return { success: false, type: 'runtime_error', error: 'Time Limit Exceeded' };
-      const runtimeErr = data.execResult.stderr ? data.execResult.stderr.map((s: any) => s.text).join('\\n') : 'Runtime error';
-      return { success: false, type: 'runtime_error', error: cleanError(runtimeErr, 'example.java') };
-    }
-    
-    const rawOutput = data.execResult && data.execResult.stdout ? data.execResult.stdout.map((s: any) => s.text).join('\\n') : '';
-    return parseOutput(rawOutput);
-  } else {
-    throw new Error('Unsupported language');
+  const response = await fetch(`https://godbolt.org/api/compiler/${compilerId}/compile`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+    body: JSON.stringify({
+      source: wrapper,
+      options: {
+        userArguments: "",
+        compilerOptions: { produceAst: false, produceOptInfo: false },
+        filters: { execute: true },
+        tools: [],
+        libraries: []
+      },
+      lang: langId,
+      allowStoreCodeDebug: true
+    })
+  });
+  
+  if (!response.ok) {
+     return { success: false, type: 'compile_error', error: "Execution API error: " + response.status };
   }
-
-  const tmpDir = os.tmpdir();
-  const sessionId = Math.random().toString(36).substring(7);
-
-  if (language === 'javascript') {
-    const file = path.join(tmpDir, `script_${sessionId}.js`);
-    fs.writeFileSync(file, wrapper);
-    try {
-      const { stdout } = await execAsync(`node ${file}`, { timeout: 3000 });
-      return parseOutput(stdout);
-    } catch (e: any) {
-      if (e.killed) return { success: false, type: 'runtime_error', error: 'Time Limit Exceeded' };
-      return { success: false, type: 'runtime_error', error: cleanError(e.stderr || e.stdout || e.message, file) };
-    } finally {
-      try { if (fs.existsSync(file)) fs.unlinkSync(file); } catch(_) {}
-    }
+  
+  const data = await response.json();
+  if (data.code !== 0) {
+    const compileErr = data.stderr ? data.stderr.map((s: any) => s.text).join('\\n') : 'Unknown compilation error';
+    return { success: false, type: 'compile_error', error: cleanError(compileErr, filename) };
   }
-
-  if (language === 'python') {
-    const file = path.join(tmpDir, `script_${sessionId}.py`);
-    fs.writeFileSync(file, wrapper);
-    try {
-      const { stdout } = await execAsync(`python ${file}`, { timeout: 3000 });
-      return parseOutput(stdout);
-    } catch (e: any) {
-      if (e.killed) return { success: false, type: 'runtime_error', error: 'Time Limit Exceeded' };
-      return { success: false, type: 'runtime_error', error: cleanError(e.stderr || e.stdout || e.message, file) };
-    } finally {
-      try { if (fs.existsSync(file)) fs.unlinkSync(file); } catch(_) {}
-    }
+  
+  if (data.execResult && data.execResult.code !== 0) {
+    if (data.execResult.timedOut) return { success: false, type: 'runtime_error', error: 'Time Limit Exceeded' };
+    const runtimeErr = data.execResult.stderr ? data.execResult.stderr.map((s: any) => s.text).join('\\n') : 'Runtime error';
+    return { success: false, type: 'runtime_error', error: cleanError(runtimeErr, filename) };
   }
-
-  if (language === 'cpp') {
-    const file = path.join(tmpDir, `script_${sessionId}.cpp`);
-    const out = path.join(tmpDir, `out_${sessionId}.exe`);
-    fs.writeFileSync(file, wrapper);
-    try {
-      await execAsync(`g++ ${file} -o ${out}`, { timeout: 5000 });
-    } catch (e: any) {
-      try { if (fs.existsSync(file)) fs.unlinkSync(file); } catch(_) {}
-      return { success: false, type: 'compile_error', error: cleanError(e.stderr || e.message, file) };
-    }
-    try {
-      const { stdout } = await execFileAsync(out, [], { timeout: 3000 });
-      return parseOutput(stdout);
-    } catch (e: any) {
-      if (e.killed) return { success: false, type: 'runtime_error', error: 'Time Limit Exceeded' };
-      return { success: false, type: 'runtime_error', error: cleanError(e.stderr || e.stdout || e.message, file) };
-    } finally {
-      try { if (fs.existsSync(file)) fs.unlinkSync(file); } catch(_) {}
-      try { if (fs.existsSync(out)) fs.unlinkSync(out); } catch(_) {}
-    }
-  }
+  
+  const rawOutput = data.execResult && data.execResult.stdout ? data.execResult.stdout.map((s: any) => s.text).join('\\n') : '';
+  return parseOutput(rawOutput);
 }
