@@ -28,6 +28,7 @@ export default function LanguageSelectionPage() {
     
     if (res.success) {
       await update(); // Force token refresh so middleware sees it
+      router.refresh(); // Clear Next.js router cache for prefetched routes
       router.push("/"); // Redirect back to home/dashboard
     } else {
       toast.error("Failed to save language. Please try again.");

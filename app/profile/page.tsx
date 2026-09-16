@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import { useSession } from "next-auth/react";
 import Image from "next/image";
 import { User, Mail, Coins, Code2, Loader2, CheckCircle2 } from "lucide-react";
@@ -15,6 +16,7 @@ const LANGUAGES = [
 ];
 
 export default function ProfilePage() {
+  const router = useRouter();
   const { data: session, update, status } = useSession();
   const [isSubmitting, setIsSubmitting] = useState(false);
   // @ts-ignore
@@ -38,6 +40,7 @@ export default function ProfilePage() {
     const res = await updateDefaultLanguage(langId);
     if (res.success) {
       await update(); // refresh session data
+      router.refresh(); // clear client-side router cache
       toast.success("Language updated successfully");
     } else {
       toast.error("Failed to update language");
