@@ -91,17 +91,60 @@ export default function DashboardClient({
       <main className="flex-1 p-6 space-y-8 bg-black z-10 relative">
 
         
-        {/* Banners */}
+        {/* HTML/CSS Banners */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="relative aspect-video rounded-sm overflow-hidden bg-black/60 border border-white/10">
-            <Image src="/banners/b1.png" alt="Promo 1" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover opacity-80 hover:opacity-100 transition-opacity" />
+          
+          {/* Banner 1 - Green */}
+          <div className="relative aspect-[2/1] md:aspect-video rounded-sm overflow-hidden bg-emerald-950/30 border border-emerald-500/10 p-5 flex flex-col justify-center group hover:bg-emerald-900/40 hover:border-emerald-500/50 transition-all duration-300">
+            {/* Background Glow */}
+            <div className="absolute -inset-24 bg-emerald-500/10 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity duration-500 rounded-full" />
+            <div className="relative z-10">
+              <h2 className="text-xl md:text-2xl font-bold text-white mb-2 tracking-tight group-hover:text-emerald-400 transition-colors">
+                Choose Your<br/>Target Role
+              </h2>
+              <p className="text-xs md:text-sm text-emerald-100/60">
+                Tell us where you're applying.
+              </p>
+            </div>
+            {/* Decorative Element */}
+            <div className="absolute right-[-10%] bottom-[-10%] w-32 h-32 border border-emerald-500/20 rounded-full flex items-center justify-center opacity-30 group-hover:opacity-60 group-hover:scale-110 group-hover:border-emerald-400/30 transition-all duration-500">
+              <div className="w-24 h-24 border border-emerald-500/20 rounded-full group-hover:border-emerald-400/40" />
+            </div>
           </div>
-          <div className="relative aspect-video rounded-sm overflow-hidden bg-black/60 border border-white/10">
-            <Image src="/banners/b2.png" alt="Promo 2" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover opacity-80 hover:opacity-100 transition-opacity" />
+
+          {/* Banner 2 - Blue */}
+          <div className="relative aspect-[2/1] md:aspect-video rounded-sm overflow-hidden bg-blue-950/30 border border-blue-500/10 p-5 flex flex-col justify-center group hover:bg-blue-900/40 hover:border-blue-500/50 transition-all duration-300">
+            <div className="absolute -inset-24 bg-blue-500/10 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity duration-500 rounded-full" />
+            <div className="relative z-10">
+              <h2 className="text-xl md:text-2xl font-bold text-white mb-2 tracking-tight group-hover:text-blue-400 transition-colors">
+                Take the OA.
+              </h2>
+              <p className="text-xs md:text-sm text-blue-100/60">
+                Practice the assessment built for your target role.
+              </p>
+            </div>
           </div>
-          <div className="relative aspect-video rounded-sm overflow-hidden bg-black/60 border border-white/10">
-            <Image src="/banners/b3.png" alt="Promo 3" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover opacity-80 hover:opacity-100 transition-opacity" />
+
+          {/* Banner 3 - Yellow */}
+          <div className="relative aspect-[2/1] md:aspect-video rounded-sm overflow-hidden bg-yellow-950/30 border border-yellow-500/10 p-5 flex flex-col justify-center group hover:bg-yellow-900/40 hover:border-yellow-500/50 transition-all duration-300">
+            <div className="absolute -inset-24 bg-yellow-500/10 opacity-0 group-hover:opacity-100 blur-2xl transition-opacity duration-500 rounded-full" />
+            <div className="relative z-10">
+              <h2 className="text-xl md:text-2xl font-bold text-white mb-2 tracking-tight group-hover:text-yellow-400 transition-colors">
+                Know what<br/>to fix.
+              </h2>
+              <p className="text-xs md:text-sm text-yellow-100/60">
+                Understand your mistakes.<br/>Improve faster.
+              </p>
+            </div>
+            {/* Decorative Score Ring */}
+            <div className="absolute right-6 top-1/2 -translate-y-1/2 w-16 h-16 rounded-full border-2 border-yellow-500/20 flex items-center justify-center group-hover:border-yellow-400 transition-colors duration-300">
+              <svg className="absolute inset-0 w-full h-full -rotate-90">
+                <circle cx="30" cy="30" r="28" fill="none" stroke="currentColor" strokeWidth="2" strokeDasharray="175" strokeDashoffset="45" className="text-yellow-500/50 group-hover:text-yellow-400 group-hover:opacity-100 transition-opacity duration-300" />
+              </svg>
+              <div className="text-xs font-bold text-white group-hover:text-yellow-400 transition-colors">72<span className="text-[8px] text-white/50">/100</span></div>
+            </div>
           </div>
+
         </div>
 
         {/* List Header */}
@@ -227,7 +270,7 @@ export default function DashboardClient({
                   </div>
                   <span className="text-sm font-medium">{company.name}</span>
                 </div>
-                <span className="text-xs font-medium text-warning bg-warning/10 px-2 py-0.5 rounded-sm">{2300 - (index * 400)}</span>
+                <span className="text-xs font-medium text-warning bg-warning/10 px-2 py-0.5 rounded-sm">3</span>
               </Link>
             ))}
           </div>
