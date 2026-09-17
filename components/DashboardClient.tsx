@@ -68,17 +68,17 @@ export default function DashboardClient({
   const mySavedCompanies = companies.filter(c => myCompanies.includes(c.id));
 
   return (
-    <div className="min-h-[calc(100vh-3.5rem)] w-full flex page-fade-in bg-background">
+    <div className="min-h-[calc(100vh-3.5rem)] w-full flex page-fade-in bg-transparent">
       
       {/* Left Sidebar */}
-      <aside className="w-64 border-r border-border flex flex-col hidden lg:flex shrink-0 p-4 sticky top-14 h-[calc(100vh-3.5rem)] overflow-y-auto">
+      <aside className="w-64 border-r border-white/10 flex flex-col hidden lg:flex shrink-0 p-4 sticky top-14 h-[calc(100vh-3.5rem)] overflow-y-auto bg-black z-10 relative">
         <h3 className="text-sm font-bold text-muted-foreground mb-4 uppercase tracking-wider px-3">Bookmarks</h3>
         <div className="flex flex-col gap-1">
           {mySavedCompanies.length === 0 ? (
             <div className="px-3 py-2 text-xs text-muted-foreground">No bookmarks saved.</div>
           ) : (
             mySavedCompanies.map(company => (
-              <Link key={company.id} href={`/company/${company.slug}`} className="flex items-center gap-3 px-3 py-2 rounded-sm bg-muted text-foreground font-medium text-sm transition-colors hover:bg-muted/80">
+              <Link key={company.id} href={`/company/${company.slug}`} className="flex items-center gap-3 px-3 py-2 rounded-sm bg-white/5 text-foreground font-medium text-sm transition-colors hover:bg-white/10">
                 {company.logo && <Image src={company.logo} alt={company.name} width={16} height={16} className="rounded-sm object-contain bg-white" />}
                 {company.name}
               </Link>
@@ -88,19 +88,19 @@ export default function DashboardClient({
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 p-6 space-y-8">
+      <main className="flex-1 p-6 space-y-8 bg-black z-10 relative">
 
         
         {/* Banners */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div className="relative aspect-video rounded-sm overflow-hidden bg-muted border border-border">
-            <Image src="/banners/b1.png" alt="Promo 1" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover" />
+          <div className="relative aspect-video rounded-sm overflow-hidden bg-black/60 border border-white/10">
+            <Image src="/banners/b1.png" alt="Promo 1" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover opacity-80 hover:opacity-100 transition-opacity" />
           </div>
-          <div className="relative aspect-video rounded-sm overflow-hidden bg-muted border border-border">
-            <Image src="/banners/b2.png" alt="Promo 2" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover" />
+          <div className="relative aspect-video rounded-sm overflow-hidden bg-black/60 border border-white/10">
+            <Image src="/banners/b2.png" alt="Promo 2" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover opacity-80 hover:opacity-100 transition-opacity" />
           </div>
-          <div className="relative aspect-video rounded-sm overflow-hidden bg-muted border border-border">
-            <Image src="/banners/b3.png" alt="Promo 3" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover" />
+          <div className="relative aspect-video rounded-sm overflow-hidden bg-black/60 border border-white/10">
+            <Image src="/banners/b3.png" alt="Promo 3" fill sizes="(max-width: 768px) 100vw, 33vw" className="object-cover opacity-80 hover:opacity-100 transition-opacity" />
           </div>
         </div>
 
@@ -116,30 +116,30 @@ export default function DashboardClient({
                 setSearchQuery(e.target.value);
                 setCurrentPage(1); // Reset to page 1 on search
               }}
-              className="w-full bg-card border border-border rounded-sm py-2 pl-9 pr-4 text-sm focus:outline-none focus:border-primary transition-colors"
+              className="w-full bg-black/40 backdrop-blur-sm border border-white/10 rounded-sm py-2 pl-9 pr-4 text-sm text-white focus:outline-none focus:border-white/30 focus:bg-black/60 transition-colors"
             />
           </div>
         </div>
 
         {/* Companies List */}
-        <div className="border border-border bg-card rounded-sm text-sm">
-          <div className="grid grid-cols-[1fr_6rem_10rem_6rem] gap-4 p-3 border-b border-border text-muted-foreground font-medium">
-            <div>Company</div>
-            <div className="text-center">Roles</div>
-            <div className="text-center">Avg Difficulty</div>
-            <div className="text-center">Bookmark</div>
+        <div className="border border-white/10 bg-black/40 backdrop-blur-md rounded-sm text-sm overflow-hidden">
+          <div className="grid grid-cols-[1fr_6rem_10rem_6rem] gap-4 p-3 border-b border-white/10 text-gray-400 font-medium">
+            <div className="uppercase tracking-wider text-xs">Company</div>
+            <div className="text-center uppercase tracking-wider text-xs">Roles</div>
+            <div className="text-center uppercase tracking-wider text-xs">Difficulty</div>
+            <div className="text-center uppercase tracking-wider text-xs">Bookmark</div>
           </div>
           
-          <div className="divide-y divide-border">
+          <div className="divide-y divide-white/5">
             {paginatedCompanies.length === 0 ? (
               <div className="p-8 text-center text-muted-foreground">No companies found.</div>
             ) : (
               paginatedCompanies.map(company => {
                 const isSaved = myCompanies.includes(company.id);
                 return (
-                  <Link key={company.id} href={`/company/${company.slug}`} className="grid grid-cols-[1fr_6rem_10rem_6rem] gap-4 p-3 hover:bg-muted/30 transition-colors items-center group">
-                    <div className="font-medium flex items-center gap-3">
-                      <div className="w-6 h-6 bg-white rounded-sm flex items-center justify-center p-0.5 border border-border">
+                  <Link key={company.id} href={`/company/${company.slug}`} className="grid grid-cols-[1fr_6rem_10rem_6rem] gap-4 p-3 hover:bg-white/5 transition-colors items-center group">
+                    <div className="font-medium flex items-center gap-3 text-white">
+                      <div className="w-6 h-6 bg-white rounded-sm flex items-center justify-center p-0.5 border border-white/20">
                         {company.logo && <Image src={company.logo} alt={company.name} width={20} height={20} className="object-contain" />}
                       </div>
                       {company.name}
@@ -152,7 +152,7 @@ export default function DashboardClient({
                       <button 
                         onClick={(e) => handleToggleBookmark(company.id, e)}
                         disabled={isPending}
-                        className={`p-1.5 rounded-sm transition-colors ${isSaved ? 'text-warning hover:bg-warning/20' : 'text-muted-foreground hover:bg-muted/50'} ${isPending ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+                        className={`p-1.5 rounded-sm transition-colors ${isSaved ? 'text-yellow-500 hover:bg-yellow-500/20' : 'text-gray-500 hover:bg-white/10'} ${isPending ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
                         title={isSaved ? "Remove from Bookmarks" : "Add to Bookmarks"}
                       >
                         {isPending ? <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" /> : (isSaved ? <BookmarkCheck className="w-4 h-4" /> : <Bookmark className="w-4 h-4" />)}
@@ -166,7 +166,7 @@ export default function DashboardClient({
           
           {/* Pagination */}
           {totalPages > 1 && (
-            <div className="p-3 border-t border-border flex items-center justify-between text-xs text-muted-foreground bg-muted/20">
+            <div className="p-3 border-t border-white/10 flex items-center justify-between text-xs text-gray-400 bg-white/5">
               <div>
                 Showing {(currentPage - 1) * ITEMS_PER_PAGE + 1} to {Math.min(currentPage * ITEMS_PER_PAGE, filteredCompanies.length)} of {filteredCompanies.length} companies
               </div>
@@ -174,15 +174,15 @@ export default function DashboardClient({
                 <button 
                   onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                   disabled={currentPage === 1}
-                  className="p-1 rounded-sm border border-border bg-card hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                  className="p-1 rounded-sm border border-white/10 bg-black/40 hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-colors"
                 >
                   <ChevronLeft className="w-4 h-4" />
                 </button>
-                <span className="px-2 font-medium">Page {currentPage} of {totalPages}</span>
+                <span className="px-2 font-medium text-white">Page {currentPage} of {totalPages}</span>
                 <button 
                   onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
                   disabled={currentPage === totalPages}
-                  className="p-1 rounded-sm border border-border bg-card hover:bg-muted disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer"
+                  className="p-1 rounded-sm border border-white/10 bg-black/40 hover:bg-white/10 disabled:opacity-50 disabled:cursor-not-allowed cursor-pointer transition-colors"
                 >
                   <ChevronRight className="w-4 h-4" />
                 </button>
@@ -194,12 +194,12 @@ export default function DashboardClient({
       </main>
 
       {/* Right Sidebar */}
-      <aside className="w-72 hidden xl:flex flex-col p-6 space-y-8 bg-card shrink-0 sticky top-14 h-[calc(100vh-3.5rem)] overflow-y-auto">
+      <aside className="w-72 hidden xl:flex flex-col p-6 space-y-8 bg-black border-l border-white/10 shrink-0 sticky top-14 h-[calc(100vh-3.5rem)] overflow-y-auto z-10 relative">
 
         {/* Top News */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <span className="font-bold text-sm">Top News</span>
+            <span className="font-bold text-sm uppercase tracking-wider text-gray-300">Top News</span>
           </div>
           <div className="flex flex-col gap-3">
             <Link href="#" className="group flex gap-3 items-start">
@@ -215,14 +215,14 @@ export default function DashboardClient({
         {/* Trending Companies (Top 10) */}
         <div className="space-y-4">
           <div className="flex items-center justify-between">
-            <span className="font-bold text-sm">Trending Companies</span>
+            <span className="font-bold text-sm uppercase tracking-wider text-gray-300">Trending</span>
           </div>
           <div className="flex flex-col gap-1">
             {companies.slice(0, 10).map((company, index) => (
-              <Link key={company.id} href={`/company/${company.slug}`} className="flex items-center justify-between px-2 py-2.5 rounded-sm hover:bg-muted/50 transition-colors">
+              <Link key={company.id} href={`/company/${company.slug}`} className="flex items-center justify-between px-2 py-2.5 rounded-sm hover:bg-white/5 transition-colors">
                 <div className="flex items-center gap-3">
-                  <span className="text-xs font-medium text-muted-foreground w-4 text-center">{index + 1}</span>
-                  <div className="w-5 h-5 bg-white rounded-sm flex items-center justify-center p-0.5">
+                  <span className="text-xs font-medium text-gray-500 w-4 text-center">{index + 1}</span>
+                  <div className="w-5 h-5 bg-white rounded-sm flex items-center justify-center p-0.5 border border-white/20">
                     {company.logo && <Image src={company.logo} alt={company.name} width={14} height={14} className="object-contain" />}
                   </div>
                   <span className="text-sm font-medium">{company.name}</span>

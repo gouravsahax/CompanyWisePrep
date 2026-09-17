@@ -9,14 +9,13 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 
 const PACKAGES = [
-  { id: "pkg_tiny", name: "Test", credits: 2, basePriceINR: 1, popular: false },
-  { id: "pkg_small", name: "Starter", credits: 10, basePriceINR: 99, popular: false },
-  { id: "pkg_medium", name: "Pro", credits: 25, basePriceINR: 199, popular: true },
-  { id: "pkg_large", name: "Elite", credits: 75, basePriceINR: 499, popular: false },
+  { id: "pkg_small", name: "Starter", credits: 10, basePriceINR: 49, popular: false },
+  { id: "pkg_medium", name: "Pro", credits: 25, basePriceINR: 99, popular: true },
+  { id: "pkg_large", name: "Elite", credits: 200, basePriceINR: 499, popular: false },
 ];
 
 export default function PricingPage() {
-  const { data: session } = useSession();
+  const { data: session, update } = useSession();
   const [loadingPkg, setLoadingPkg] = useState<string | null>(null);
   const [currency, setCurrency] = useState<string>("INR");
   const [exchangeRate, setExchangeRate] = useState<number>(1);
@@ -98,6 +97,8 @@ export default function PricingPage() {
           const verifyData = await verifyRes.json();
           if (verifyData.success) {
             toast.success(`Success! Added ${pkg.credits} credits to your account.`);
+            await update();
+            router.push("/");
             router.refresh();
           } else {
             toast.error("Payment verification failed!");
