@@ -112,7 +112,7 @@ export default function LoginPage() {
         
         {/* Headers */}
         <div className={`space-y-2 mb-8`}>
-          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-white drop-shadow-sm">Welcome Back to Ccp</h1>
+          <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-white drop-shadow-sm">Welcome Back to Cwp</h1>
           <p className="text-gray-400 text-sm sm:text-base font-normal">
             Log in and Prepare for your Next OA.
           </p>
