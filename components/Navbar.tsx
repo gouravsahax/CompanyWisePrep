@@ -6,6 +6,9 @@ import { useEffect, useState } from "react";
 import { useSession, signIn, signOut } from "next-auth/react";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
+import { Source_Code_Pro } from "next/font/google";
+
+const sourceCodePro = Source_Code_Pro({ subsets: ["latin"], weight: ["700"] });
 
 export default function Navbar() {
   const [mounted, setMounted] = useState(false);
@@ -23,11 +26,11 @@ export default function Navbar() {
   return (
     <nav className="sticky top-0 z-50 w-full h-14 border-b border-white/10 bg-black/40 backdrop-blur-md flex items-center px-6 justify-between text-sm shrink-0">
       <div className="flex items-center gap-6">
-        <Link href="/" className="font-bold text-lg text-foreground flex items-center gap-2">
+        <Link href="/" className={`font-bold text-lg text-foreground flex items-center gap-2 ${sourceCodePro.className}`}>
           <div className="flex items-center justify-center">
             <Image src="/favicon_io/android-chrome-192x192.png" alt="CompanyWisePrep Logo" width={28} height={28} className="rounded-sm" />
           </div>
-          CWP
+          Cwp
         </Link>
       </div>
       
