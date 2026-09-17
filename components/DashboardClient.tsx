@@ -89,19 +89,7 @@ export default function DashboardClient({
 
       {/* Main Content */}
       <main className="flex-1 p-6 space-y-8">
-        <div className="bg-primary/5 border border-primary/20 rounded-sm p-6 space-y-3">
-          <h1 className="text-xl font-bold text-foreground">Welcome to CompanyWisePrep</h1>
-          <p className="text-sm text-muted-foreground leading-relaxed">
-            CompanyWisePrep is an AI-powered educational platform offering premium, company-specific mock Online Assessments (OAs) and interview preparation materials for software engineering candidates. 
-            Our services allow users to practice real-world coding and UI challenges tailored to top tech companies. 
-            To access our premium mock tests and detailed analytics, you can purchase credits. 
-          </p>
-          <div className="pt-2">
-            <Link href="/pricing" className="text-sm font-medium text-primary hover:underline flex items-center gap-1">
-              View Pricing & Packages &rarr;
-            </Link>
-          </div>
-        </div>
+
         
         {/* Banners */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
