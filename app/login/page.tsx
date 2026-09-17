@@ -60,12 +60,12 @@ export default function LoginPage() {
                 left: 0;
               }
               .animate-walk-1 { animation: walkRight 3s linear infinite; }
-              .animate-walk-2 { animation: walkRight 3s linear infinite 1s; }
-              .animate-walk-3 { animation: walkRight 3s linear infinite 2s; }
+              .animate-walk-2 { animation: walkRight 3s linear infinite -1s; }
+              .animate-walk-3 { animation: walkRight 3s linear infinite -2s; }
               
               .animate-bob-1 { animation: bob 0.5s ease-in-out infinite; }
-              .animate-bob-2 { animation: bob 0.5s ease-in-out infinite 0.25s; }
-              .animate-bob-3 { animation: bob 0.5s ease-in-out infinite 0.5s; }
+              .animate-bob-2 { animation: bob 0.5s ease-in-out infinite -0.16s; }
+              .animate-bob-3 { animation: bob 0.5s ease-in-out infinite -0.33s; }
             `}</style>
             
             {/* Stick Figure 1 */}
