@@ -45,7 +45,7 @@ model User {
   transactions        Transaction[]
   bookmarks           Bookmark[]
   unlockedAssessments UnlockedAssessment[]
-  credits             Int                  @default(2) // Default credits for new users
+  credits             Int                  @default(5) // Default credits for new users
   dsaSolutions        UserDSASolution[]
   uiSolutions         UserUIBuildSolution[]
   analysis            UserAnalysis?

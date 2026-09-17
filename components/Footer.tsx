@@ -1,6 +1,16 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 
 export default function Footer() {
+  const pathname = usePathname();
+  
+  // Hide footer on specific pages like login
+  if (pathname === "/login" || pathname === "/onboarding") {
+    return null;
+  }
+  
   return (
     <footer className="border-t border-border bg-card mt-auto py-8 text-sm">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
