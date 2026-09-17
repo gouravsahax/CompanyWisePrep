@@ -2,7 +2,7 @@
 
 **CompanyWisePrep** is a next-generation, AI-powered platform designed to help software engineers prepare for company-specific Online Assessments (OAs). Instead of generic practice questions, we offer highly realistic mock assessments tailored to the exact patterns, difficulty, and question formats used by top tech companies like Amazon, Google, Microsoft, and more.
 
-![CompanyWisePrep Dashboard Preview](public/signin.jpg)
+![CompanyWisePrep Dashboard Preview](public/sc.png)
 
 ## 🌟 Key Features
 
