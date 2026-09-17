@@ -89,6 +89,7 @@ export default function DashboardClient({
 
       {/* Main Content */}
       <main className="flex-1 overflow-y-auto p-6 space-y-8">
+        <h1 className="sr-only">Company-Wise Online Assessment Preparation</h1>
         
         {/* Banners */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -190,6 +191,15 @@ export default function DashboardClient({
           )}
         </div>
 
+        {/* Legal Links Footer */}
+        <div className="mt-8 pt-6 border-t border-border flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground">
+          <Link href="/pricing" className="hover:text-foreground transition-colors">Pricing</Link>
+          <Link href="/terms" className="hover:text-foreground transition-colors">Terms of Service</Link>
+          <Link href="/privacy" className="hover:text-foreground transition-colors">Privacy Policy</Link>
+          <Link href="/refund" className="hover:text-foreground transition-colors">Refund Policy</Link>
+          <Link href="/contact" className="hover:text-foreground transition-colors">Contact Us</Link>
+          <span className="w-full text-center mt-2 opacity-50">&copy; {new Date().getFullYear()} CompanyWisePrep. All rights reserved.</span>
+        </div>
       </main>
 
       {/* Right Sidebar */}

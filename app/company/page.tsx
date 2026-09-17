@@ -1,5 +1,11 @@
 import Link from "next/link";
 import { Search, Filter } from "lucide-react";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Mock Online Assessments",
+  description: "Browse and practice company-specific mock Online Assessments for top tech companies.",
+};
 
 export default function AssessmentsPage() {
   return (

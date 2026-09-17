@@ -6,9 +6,40 @@ import { AuthProvider } from "@/components/AuthProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
-export const metadata = {
-  title: "CompanyWisePrep - Company-Wise OA Prep Platform",
-  description: "AI-powered company- and role-specific Online Assessment preparation",
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  metadataBase: new URL('https://companywiseprep.online'),
+  title: {
+    default: "CompanyWisePrep - Company-Wise OA Prep Platform",
+    template: "%s | CompanyWisePrep",
+  },
+  description: "AI-powered company- and role-specific Online Assessment preparation. Ace your next software engineering interview.",
+  keywords: ["Software Engineering", "Online Assessment", "Interview Prep", "Coding Interview", "CompanyWisePrep"],
+  authors: [{ name: "CompanyWisePrep Team" }],
+  creator: "CompanyWisePrep",
+  openGraph: {
+    type: "website",
+    locale: "en_US",
+    url: "https://companywiseprep.online",
+    title: "CompanyWisePrep - Company-Wise OA Prep Platform",
+    description: "AI-powered company- and role-specific Online Assessment preparation.",
+    siteName: "CompanyWisePrep",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "CompanyWisePrep Preview",
+      }
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "CompanyWisePrep - Company-Wise OA Prep Platform",
+    description: "AI-powered company- and role-specific Online Assessment preparation.",
+    images: ["/og-image.jpg"],
+  },
   icons: {
     icon: [
       { url: '/favicon_io/favicon-32x32.png', sizes: '32x32', type: 'image/png' },

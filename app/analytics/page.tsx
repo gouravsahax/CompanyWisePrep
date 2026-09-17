@@ -3,6 +3,12 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import { prisma } from "@/lib/prisma";
 import { redirect } from "next/navigation";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Analytics",
+  description: "Global AI analysis of your interview prep performance across all company assessments.",
+};
 
 export default async function AnalyticsPage() {
   const session = await getServerSession(authOptions);

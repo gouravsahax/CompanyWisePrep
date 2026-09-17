@@ -6,6 +6,28 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
 import AssessmentWorkspace from "@/components/AssessmentWorkspace";
 import UIBuildWorkspace from "@/components/UIBuildWorkspace";
+import type { Metadata, ResolvingMetadata } from 'next';
+
+export async function generateMetadata(
+  { params }: { params: Promise<{ id: string, assessmentId: string }> },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const { id, assessmentId } = await params;
+  const company = await prisma.company.findUnique({ where: { id } }) || 
+                  await prisma.company.findUnique({ where: { slug: id } });
+
+  if (!company) {
+    return { title: "Assessment Not Found" };
+  }
+  
+  const roleId = assessmentId.split('-oa-')[0];
+  const role = await prisma.role.findUnique({ where: { id: roleId } });
+
+  return {
+    title: `${company.name} ${role?.name || ''} Assessment`,
+    description: `Take the ${company.name} ${role?.name || ''} Mock Assessment and get AI-powered feedback on your performance.`,
+  };
+}
 
 export default async function AssessmentTakingPage({ 
   params 

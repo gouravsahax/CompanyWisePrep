@@ -4,6 +4,28 @@ import Link from "next/link";
 import { ArrowLeft, BrainCircuit, CheckCircle2, Target, Zap, Clock, Code2 } from "lucide-react";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/lib/auth";
+import type { Metadata, ResolvingMetadata } from 'next';
+
+export async function generateMetadata(
+  { params }: { params: Promise<{ id: string, assessmentId: string }> },
+  parent: ResolvingMetadata
+): Promise<Metadata> {
+  const { id, assessmentId } = await params;
+  const company = await prisma.company.findUnique({ where: { id } }) || 
+                  await prisma.company.findUnique({ where: { slug: id } });
+
+  if (!company) {
+    return { title: "Analysis Not Found" };
+  }
+  
+  const roleId = assessmentId.split('-oa-')[0];
+  const role = await prisma.role.findUnique({ where: { id: roleId } });
+
+  return {
+    title: `${company.name} ${role?.name || ''} Analysis`,
+    description: `AI Performance Analysis for ${company.name} ${role?.name || ''} Mock Assessment.`,
+  };
+}
 
 export default async function AssessmentAnalysisPage({ 
   params 

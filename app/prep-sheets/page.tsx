@@ -1,4 +1,10 @@
 import { FileText, Download, Lock } from "lucide-react";
+import type { Metadata } from "next";
+
+export const metadata: Metadata = {
+  title: "Prep Sheets",
+  description: "Company and Role specific prep sheets. Detailed preparation packs containing assessment intelligence, topics, and past patterns.",
+};
 
 export default function PrepSheetsPage() {
   return (
