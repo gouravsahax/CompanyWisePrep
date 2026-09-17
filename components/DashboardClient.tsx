@@ -68,10 +68,10 @@ export default function DashboardClient({
   const mySavedCompanies = companies.filter(c => myCompanies.includes(c.id));
 
   return (
-    <div className="h-[calc(100vh-3.5rem)] w-full flex overflow-hidden page-fade-in bg-background">
+    <div className="min-h-[calc(100vh-3.5rem)] w-full flex page-fade-in bg-background">
       
       {/* Left Sidebar */}
-      <aside className="w-64 border-r border-border flex flex-col hidden lg:flex shrink-0 p-4 overflow-y-auto">
+      <aside className="w-64 border-r border-border flex flex-col hidden lg:flex shrink-0 p-4 sticky top-14 h-[calc(100vh-3.5rem)] overflow-y-auto">
         <h3 className="text-sm font-bold text-muted-foreground mb-4 uppercase tracking-wider px-3">Bookmarks</h3>
         <div className="flex flex-col gap-1">
           {mySavedCompanies.length === 0 ? (
@@ -88,8 +88,20 @@ export default function DashboardClient({
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto p-6 space-y-8">
-        <h1 className="sr-only">Company-Wise Online Assessment Preparation</h1>
+      <main className="flex-1 p-6 space-y-8">
+        <div className="bg-primary/5 border border-primary/20 rounded-sm p-6 space-y-3">
+          <h1 className="text-xl font-bold text-foreground">Welcome to CompanyWisePrep</h1>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            CompanyWisePrep is an AI-powered educational platform offering premium, company-specific mock Online Assessments (OAs) and interview preparation materials for software engineering candidates. 
+            Our services allow users to practice real-world coding and UI challenges tailored to top tech companies. 
+            To access our premium mock tests and detailed analytics, you can purchase credits. 
+          </p>
+          <div className="pt-2">
+            <Link href="/pricing" className="text-sm font-medium text-primary hover:underline flex items-center gap-1">
+              View Pricing & Packages &rarr;
+            </Link>
+          </div>
+        </div>
         
         {/* Banners */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -191,19 +203,10 @@ export default function DashboardClient({
           )}
         </div>
 
-        {/* Legal Links Footer */}
-        <div className="mt-8 pt-6 border-t border-border flex flex-wrap items-center justify-center gap-4 text-xs text-muted-foreground">
-          <Link href="/pricing" className="hover:text-foreground transition-colors">Pricing</Link>
-          <Link href="/terms" className="hover:text-foreground transition-colors">Terms of Service</Link>
-          <Link href="/privacy" className="hover:text-foreground transition-colors">Privacy Policy</Link>
-          <Link href="/refund" className="hover:text-foreground transition-colors">Refund Policy</Link>
-          <Link href="/contact" className="hover:text-foreground transition-colors">Contact Us</Link>
-          <span className="w-full text-center mt-2 opacity-50">&copy; {new Date().getFullYear()} CompanyWisePrep. All rights reserved.</span>
-        </div>
       </main>
 
       {/* Right Sidebar */}
-      <aside className="w-72 hidden xl:flex flex-col p-6 space-y-8 bg-card shrink-0 overflow-y-auto">
+      <aside className="w-72 hidden xl:flex flex-col p-6 space-y-8 bg-card shrink-0 sticky top-14 h-[calc(100vh-3.5rem)] overflow-y-auto">
 
         {/* Top News */}
         <div className="space-y-4">

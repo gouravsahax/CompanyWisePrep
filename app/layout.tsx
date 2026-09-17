@@ -55,6 +55,8 @@ import NextTopLoader from 'nextjs-toploader';
 import { Toaster } from "react-hot-toast";
 import FirebaseAnalytics from "@/components/FirebaseAnalytics";
 
+import Footer from "@/components/Footer";
+
 export default function RootLayout({
   children,
 }: {
@@ -77,7 +79,10 @@ export default function RootLayout({
         <ThemeProvider>
           <AuthProvider>
             <Navbar />
-            {children}
+            <div className="flex-1 flex flex-col">
+              {children}
+            </div>
+            <Footer />
             <Toaster position="top-center" />
             <FirebaseAnalytics />
           </AuthProvider>

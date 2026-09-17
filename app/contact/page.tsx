@@ -42,10 +42,10 @@ export default function ContactPage() {
             </div>
             <h2 className="text-xl font-semibold">Registered Address</h2>
             <p className="text-sm text-muted-foreground">
-              CompanyWisePrep<br />
-              [Your Business Address Line 1]<br />
-              [City, State, Zip Code]<br />
-              [Country]
+              Gourav Saha<br />
+              Kolkata<br />
+              West Bengal, 700001<br />
+              India
             </p>
             <p className="text-xs text-muted-foreground mt-2 italic">
               Note: This address is for legal and official correspondence only. For customer support, please use our email.
