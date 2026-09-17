@@ -12,7 +12,7 @@ export default function Footer() {
   }
   
   return (
-    <footer className="border-t border-border bg-card mt-auto py-8 text-sm">
+    <footer className="border-t border-white/10 bg-black/40 backdrop-blur-md mt-auto py-8 text-sm">
       <div className="max-w-7xl mx-auto px-6 grid grid-cols-1 md:grid-cols-4 gap-8">
         <div className="space-y-4">
           <h3 className="font-bold text-lg">CompanyWisePrep</h3>

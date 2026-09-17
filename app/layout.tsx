@@ -1,10 +1,15 @@
 import "./globals.css";
-import { Inter } from "next/font/google";
+import { Inter, Roboto } from "next/font/google";
+import AnimatedBackground from "@/components/AnimatedBackground";
 import Navbar from "@/components/Navbar";
-import { ThemeProvider } from "@/components/ThemeProvider";
 import { AuthProvider } from "@/components/AuthProvider";
+import PageBackgroundWrapper from "@/components/PageBackgroundWrapper";
 
 const inter = Inter({ subsets: ["latin"] });
+const roboto = Roboto({ 
+  weight: ['300', '400', '500', '700'],
+  subsets: ['latin'],
+});
 
 import type { Metadata } from "next";
 
@@ -63,8 +68,9 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" suppressHydrationWarning>
-      <body className={`${inter.className} bg-background text-foreground min-h-screen flex flex-col`}>
+    <html lang="en" className="dark" data-theme="dark" suppressHydrationWarning>
+      <body className={`${roboto.className} bg-black text-foreground min-h-screen flex flex-col`}>
+        <AnimatedBackground />
         <NextTopLoader
           color="hsl(var(--primary))"
           initialPosition={0.08}
@@ -76,17 +82,15 @@ export default function RootLayout({
           speed={200}
           shadow="0 0 10px hsl(var(--primary)),0 0 5px hsl(var(--primary))"
         />
-        <ThemeProvider>
-          <AuthProvider>
-            <Navbar />
-            <div className="flex-1 flex flex-col">
-              {children}
-            </div>
-            <Footer />
-            <Toaster position="top-center" />
-            <FirebaseAnalytics />
-          </AuthProvider>
-        </ThemeProvider>
+        <AuthProvider>
+          <Navbar />
+          <PageBackgroundWrapper>
+            {children}
+          </PageBackgroundWrapper>
+          <Footer />
+          <Toaster position="top-center" />
+          <FirebaseAnalytics />
+        </AuthProvider>
       </body>
     </html>
   );

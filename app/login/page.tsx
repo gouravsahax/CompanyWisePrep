@@ -6,12 +6,6 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Loader2 } from "lucide-react";
-import { Roboto } from "next/font/google";
-
-const roboto = Roboto({ 
-  weight: ['300', '400', '500', '700'],
-  subsets: ['latin'],
-});
 
 export default function LoginPage() {
   const { status } = useSession();
@@ -30,45 +24,8 @@ export default function LoginPage() {
   };
   
   return (
-    <div className="relative flex min-h-screen items-center justify-center p-4 sm:p-8 bg-black overflow-hidden">
+    <div className="relative flex min-h-screen items-center justify-center p-4 sm:p-8 overflow-hidden">
       
-      {/* Animated Background */}
-      <div className="absolute inset-0 z-0 bg-black">
-        <style>{`
-          @keyframes blob {
-            0% { transform: translate(0px, 0px) scale(1); }
-            33% { transform: translate(20px, -20px) scale(1.1); }
-            66% { transform: translate(-10px, 10px) scale(0.9); }
-            100% { transform: translate(0px, 0px) scale(1); }
-          }
-          .animate-blob {
-            animation: blob 8s infinite alternate ease-in-out;
-          }
-          .animation-delay-2000 {
-            animation-delay: 2s;
-          }
-        `}</style>
-        
-        {/* Glows */}
-        <div className="absolute -top-[20%] -left-[15%] w-[40vw] h-[150%] max-w-[500px] rotate-12">
-          <div className="w-full h-full bg-teal-500/80 blur-[130px] animate-blob mix-blend-screen" />
-        </div>
-        <div className="absolute -top-[20%] -right-[15%] w-[40vw] h-[150%] max-w-[500px] -rotate-12">
-          <div className="w-full h-full bg-yellow-500/80 blur-[130px] animate-blob animation-delay-2000 mix-blend-screen" />
-        </div>
-
-        {/* Perforated Ring Overlay */}
-        <div 
-          className="absolute inset-0 bg-black pointer-events-none"
-          style={{
-            maskImage: `radial-gradient(circle at center, black 2px, transparent 2.5px, transparent 4px, black 4.5px)`,
-            maskSize: '12px 12px',
-            WebkitMaskImage: `radial-gradient(circle at center, black 2px, transparent 2.5px, transparent 4px, black 4.5px)`,
-            WebkitMaskSize: '12px 12px',
-          }}
-        />
-      </div>
-
       {/* Form Content (Floating) */}
       <div className="relative z-10 w-full max-w-sm flex flex-col items-center text-center text-white">
         
@@ -154,7 +111,7 @@ export default function LoginPage() {
         </div>
         
         {/* Headers */}
-        <div className={`space-y-2 mb-8 ${roboto.className}`}>
+        <div className={`space-y-2 mb-8`}>
           <h1 className="text-3xl sm:text-4xl font-bold tracking-tight text-white drop-shadow-sm">Welcome Back to Ccp</h1>
           <p className="text-gray-400 text-sm sm:text-base font-normal">
             Log in and Prepare for your Next OA.

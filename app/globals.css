@@ -16,12 +16,12 @@
 }
 
 [data-theme='dark'] {
-  --background: #1a1a1a;
+  --background: #000000;
   --foreground: #ffffff;
   --muted: #262626;
   --muted-foreground: #a3a3a3;
   --border: #333333;
-  --card: #222222;
+  --card: #000000;
   --primary: #ffa116; /* Leetcode orange */
   --primary-foreground: #000000;
   --success: #2cbb5d;
