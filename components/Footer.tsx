@@ -6,8 +6,9 @@ import { usePathname } from "next/navigation";
 export default function Footer() {
   const pathname = usePathname();
   
-  // Hide footer on specific pages like login
-  if (pathname === "/login" || pathname === "/onboarding") {
+  // Hide footer on specific pages like login and active assessments
+  const isAssessmentPage = /^\/company\/[^\/]+\/[^\/]+$/.test(pathname);
+  if (pathname === "/login" || pathname === "/onboarding" || isAssessmentPage) {
     return null;
   }
   

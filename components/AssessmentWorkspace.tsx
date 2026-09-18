@@ -18,6 +18,11 @@ import { useSession } from "next-auth/react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { toast } from "react-hot-toast";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
+import remarkMath from "remark-math";
+import rehypeKatex from "rehype-katex";
+import "katex/dist/katex.min.css";
 
 export default function AssessmentWorkspace({
   dsaQuestions,
@@ -584,15 +589,25 @@ export default function AssessmentWorkspace({
                       </h2>
                     </div>
                     <div className="prose prose-invert prose-p:leading-relaxed prose-pre:bg-muted/50 max-w-none text-muted-foreground font-light text-[15px]">
-                      {currentQ.description}
+                      <ReactMarkdown
+                        remarkPlugins={[remarkGfm, remarkMath]}
+                        rehypePlugins={[rehypeKatex]}
+                      >
+                        {currentQ.description}
+                      </ReactMarkdown>
                     </div>
 
                     <div className="space-y-4">
                       <h3 className="text-lg font-medium text-foreground">
                         Constraints
                       </h3>
-                      <div className="bg-muted/30 p-5 rounded-sm border border-border/50 text-sm text-muted-foreground font-mono leading-relaxed whitespace-pre-wrap">
-                        {currentQ.constraints}
+                      <div className="bg-muted/30 p-5 rounded-sm border border-border/50 text-sm text-muted-foreground font-mono leading-relaxed prose prose-invert prose-sm max-w-none prose-p:my-1 prose-ul:my-1 prose-li:my-0.5">
+                        <ReactMarkdown
+                          remarkPlugins={[remarkGfm, remarkMath]}
+                          rehypePlugins={[rehypeKatex]}
+                        >
+                          {currentQ.constraints}
+                        </ReactMarkdown>
                       </div>
                     </div>
 
@@ -605,17 +620,17 @@ export default function AssessmentWorkspace({
                           key={i}
                           className="bg-muted/30 p-5 rounded-sm border border-border/50 space-y-2"
                         >
-                          <p className="font-mono text-sm">
-                            <strong className="text-foreground">Input:</strong>{" "}
+                          <p className="font-mono text-sm whitespace-pre-wrap">
+                            <strong className="text-foreground block mb-1">Input:</strong>{" "}
                             {ex.input}
                           </p>
-                          <p className="font-mono text-sm">
-                            <strong className="text-foreground">Output:</strong>{" "}
+                          <p className="font-mono text-sm whitespace-pre-wrap mt-3">
+                            <strong className="text-foreground block mb-1">Output:</strong>{" "}
                             {ex.output}
                           </p>
                           {ex.explanation && (
-                            <p className="text-sm text-muted-foreground mt-2 font-light italic">
-                              Explanation: {ex.explanation}
+                            <p className="text-sm text-muted-foreground mt-4 font-light italic whitespace-pre-wrap">
+                              <span className="font-medium text-foreground">Explanation:</span> {ex.explanation}
                             </p>
                           )}
                         </div>

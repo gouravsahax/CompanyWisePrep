@@ -150,17 +150,20 @@ export default function DashboardClient({
         {/* List Header */}
         <div className="flex items-center justify-between">
           <div className="relative w-full max-w-md">
-            <Search className="w-4 h-4 absolute left-3 top-2.5 text-muted-foreground" />
+            <Search className="w-4 h-4 absolute left-3 top-2.5 text-gray-400 z-10 pointer-events-none" />
             <input 
               type="text" 
-              placeholder="Search for a company..." 
+              placeholder="Search..." 
               value={searchQuery}
               onChange={(e) => {
                 setSearchQuery(e.target.value);
                 setCurrentPage(1); // Reset to page 1 on search
               }}
-              className="w-full bg-black/40 backdrop-blur-sm border border-white/10 rounded-sm py-2 pl-9 pr-4 text-sm text-white focus:outline-none focus:border-white/30 focus:bg-black/60 transition-colors"
+              className="w-full bg-black/40 backdrop-blur-sm border border-white/10 rounded-sm py-2 pl-9 pr-14 text-sm text-white focus:outline-none focus:border-white/30 focus:bg-black/60 transition-colors relative z-0"
             />
+            <div className="absolute right-3 top-2.5 flex items-center z-10 pointer-events-none">
+              <span className="text-xs text-gray-500 font-medium">CtrlK</span>
+            </div>
           </div>
         </div>
 
@@ -249,7 +252,18 @@ export default function DashboardClient({
               <div className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0"></div>
               <div>
                 <p className="text-xs font-medium group-hover:text-primary transition-colors line-clamp-2">Amazon SDE and Data Engineer roles and OA questions added.</p>
-                <span className="text-[10px] text-muted-foreground mt-0.5 block">1 hour ago</span>
+              </div>
+            </Link>
+            <Link href="#" className="group flex gap-3 items-start">
+              <div className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0"></div>
+              <div>
+                <p className="text-xs font-medium group-hover:text-primary transition-colors line-clamp-2">Stripe Software Engineer Intern roles and OA questions added.</p>
+              </div>
+            </Link>
+            <Link href="#" className="group flex gap-3 items-start">
+              <div className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5 shrink-0"></div>
+              <div>
+                <p className="text-xs font-medium group-hover:text-primary transition-colors line-clamp-2">Salesforce Software Engineer Intern roles and OA questions added.</p>
               </div>
             </Link>
           </div>

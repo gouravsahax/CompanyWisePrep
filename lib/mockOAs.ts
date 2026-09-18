@@ -54,6 +54,39 @@ export function getMockOAs(company: Company, role: Role | null): MockOA[] {
       }
     ];
   }
+
+  // Custom Stripe SWE Intern OAs
+  if (company.slug === 'stripe' && role.name === 'Software Engineer Intern') {
+    return [
+      {
+        id: `${role.id}-oa-stripe-1`,
+        title: `Stripe SWE Intern OA - Set 1 (Merchant Fraud Risk)`,
+        duration: "60 mins",
+        difficulty: "Hard",
+        questions: 1,
+        credits: 2,
+        type: "HackerRank (Stream Processing)"
+      },
+      {
+        id: `${role.id}-oa-stripe-2`,
+        title: `Stripe SWE Intern OA - Set 2 (WebSocket Load Balancer)`,
+        duration: "60 mins",
+        difficulty: "Hard",
+        questions: 1,
+        credits: 2,
+        type: "HackerRank (System Implementation)"
+      },
+      {
+        id: `${role.id}-oa-stripe-3`,
+        title: `Stripe SWE Intern OA - Set 3 (Store Closing Time)`,
+        duration: "60 mins",
+        difficulty: "Medium",
+        questions: 1,
+        credits: 2,
+        type: "HackerRank (Grammar Parsing)"
+      }
+    ];
+  }
   
   // Generic OAs
   return Array.from({ length: role.oaCount }).map((_, i) => ({

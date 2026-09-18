@@ -76,11 +76,12 @@ export default async function AssessmentTakingPage({
   const roleId = assessmentId.split('-oa-')[0];
   const role = actualCompany.roles.find(r => r.id === roleId);
 
-  // If this is a DSA assessment, fetch questions
+  // If this is a DSA or Stripe assessment, fetch questions
   let dsaQuestions: any[] = [];
-  if (assessmentId.includes('dsa') && role) {
+  if ((assessmentId.includes('dsa') || assessmentId.includes('stripe')) && role) {
     let oaSetNo = 1;
-    if (assessmentId.includes('dsa-2')) oaSetNo = 2;
+    if (assessmentId.includes('dsa-2') || assessmentId.includes('stripe-2')) oaSetNo = 2;
+    if (assessmentId.includes('stripe-3')) oaSetNo = 3;
     
     dsaQuestions = await prisma.dSAQuestion.findMany({
       where: {
